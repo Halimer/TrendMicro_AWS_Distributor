@@ -1,0 +1,125 @@
+{
+    "AWSTemplateFormatVersion": "2010-09-09",
+    "Description": "Template to Deploy the EC2 SSM Role",
+    "Parameters":
+    {
+        "EC2RoleName":
+        {
+            "Description": "Role name of the EC2 Instance Profile for SSM",
+            "Type": "String",
+            "Default": "EC2_DSM_SSM_Role"
+        },
+        "DSMHostname":
+        {
+            "Description":"Hostname for the DSM Service. No http or ports required if you are using the defaults",
+            "Type": "String"
+
+        }
+
+    },
+    "Resources":
+    {
+        "DSMACTIVATIONURL": {
+            "Type": "AWS::SSM::Parameter",
+            "Properties": {
+               "Name": "DSMActiviationURL",
+               "Type": "String",
+               "Value":            {
+                "Fn::Join": [
+                  "", [
+                    "dsm://",
+                    {"Ref":"DSMHostname"},
+                    ":4120/"
+                  ]
+                ]
+              },
+               "Description": "Activiation URL of the DSM Server for the Script"
+            }
+         },
+         "DSMMANAGERURL": {
+            "Type": "AWS::SSM::Parameter",
+            "Properties": {
+               "Name": "DSMManageURL",
+               "Type": "String",
+               "Value": 
+               {
+                "Fn::Join": [
+                  "", [
+                    "https://",
+                    {"Ref":"DSMHostname"},
+                    ":443"
+                  ]
+                ]
+              },
+               
+               "Description": "Management URL of the DSM Server for the Script"
+            }
+         },
+        "EC2SSMRole":{
+        "Type": "AWS::IAM::Role",
+        "Properties": {
+            "RoleName":{"Ref": "EC2RoleName"},
+            "AssumeRolePolicyDocument": {
+                "Statement": [
+                    {
+                        "Effect": "Allow",
+                        "Principal": {
+                            "Service": [
+                                "ec2.amazonaws.com"
+                            ]
+                        },
+                        "Action": [
+                            "sts:AssumeRole"
+                        ]
+                    }
+                ]
+            },
+            "ManagedPolicyArns": [
+                "arn:aws:iam::aws:policy/service-role/AmazonEC2RoleforSSM"
+            ],
+            "Path": "/",
+            "Policies": [
+                {
+                    "PolicyName": "DeepSecurityManagerInstancePolicy",
+                    "PolicyDocument": {
+                        "Statement": [
+                            {
+                                "Effect": "Allow",
+                                "Action": [
+                                    "ssm:GetParameter"
+                                ],
+                                "Resource": "*"
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    },
+    "EC2SSMInstnaceProfile": {
+            "Type": "AWS::IAM::InstanceProfile",
+            "Properties": {
+                "InstanceProfileName":"EC2SSMInstanceProfile"
+                "Path": "/",
+                "Roles": [
+                    {
+                        "Ref": "EC2SSMRole"
+                    }
+                ]
+            }
+        }
+    },
+    "Outputs":
+    {
+        "EC2SSMIsntanceProfile": {
+            "Fn::GetAtt" : ["EC2SSMInstnaceProfile", "Arn"] 
+        }
+    }
+
+
+
+
+
+
+
+}
