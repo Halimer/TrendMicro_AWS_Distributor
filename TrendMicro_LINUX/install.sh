@@ -3,8 +3,8 @@ REGION=`curl http://169.254.169.254/latest/dynamic/instance-identity/document|gr
 
 aws configure set region $REGION
 
-ACTIVATIONURL=`aws ssm get-parameters --name DSMACTIVATIONURL  --query 'Parameters[*].Value' --output text`
-MANAGERURL=`aws ssm get-parameters --name DSMMANAGERURL  --query 'Parameters[*].Value' --output text`
+ACTIVATIONURL=`aws ssm get-parameters --name DSMActiviationURL  --query 'Parameters[*].Value' --output text`
+MANAGERURL=`aws ssm get-parameters --name DSMManageURL  --query 'Parameters[*].Value' --output text`
 
 CURLOPTIONS='--silent --tlsv1.2'
 linuxPlatform='';

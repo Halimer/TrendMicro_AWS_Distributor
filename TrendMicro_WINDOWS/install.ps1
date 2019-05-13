@@ -8,11 +8,7 @@ if (-NOT ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdent
    exit 1
 }
 
-<<<<<<< HEAD
-$managerUrl=(Get-SSMParameter -Name DSMMANAGERURL).value + "/"
-=======
-$managerUrl=(Get-SSMParameter -Name DSMMANAGERURL).value + '/'
->>>>>>> d24fb2c408baa83423b7f07579406f48dee86fc2
+$managerUrl=(GetSSMParameter -Name DSMManageURL).value + "/"
 
 $env:LogPath = "$env:appdata\Trend Micro\Deep Security Agent\installer"
 New-Item -path $env:LogPath -type directory
@@ -25,7 +21,7 @@ else {
    $sourceUrl=-join($managerUrl, "software/agent/Windows/i386/") }
 echo "$(Get-Date -format T) - Download Deep Security Agent Package" $sourceUrl
 
-$ACTIVATIONURL=(Get-SSMParameter -Name DSMACTIVATIONURL).value
+$ACTIVATIONURL=(Get-SSMParameter -Name DSMActiviationURL).value
 
 $WebClient = New-Object System.Net.WebClient
 

@@ -20,12 +20,12 @@
     "files": {
         "TrendMicro_WINDOWS.zip": {
             "checksums": {
-                "sha256": "80bdd5df5709a2b37de7cc68c538082005f1dc674085c7c8e5b4192dfe8f4f0f"
+                "sha256": "5544506c43cdd4af30bfe1fa21ba4057e2471d20f7ee1f97aee1d33ab26493ab"
             }
         },
         "TrendMicro_LINUX.zip": {
             "checksums": {
-                "sha256": "93419752F647E38794FD5761FA9CAE90FD0D3E400036F5064206DA8EB6DB952E"
+                "sha256": "bc0cb9efc492ffb6637c5c40ce1b82340b3ea8b0e921f96e6f2d311ce47690f8"
             }
         }
     }

@@ -110,7 +110,7 @@
         }
     },
     "Outputs": {
-        "EC2SSMIsntanceProfile": {
+        "EC2SSMInstanceProfileARN": {
             "Description": "ARN of the Instance Role",
             "Value": {
                 "Fn::GetAtt": [
