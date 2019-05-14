@@ -8,13 +8,14 @@ if (-NOT ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdent
    exit 1
 }
 
-$managerUrl=(GetSSMParameter -Name DSMManageURL).value + "/"
+$managerUrl=(Get-SSMParameter -Name DSMManageURL).value + "/"
 
 $env:LogPath = "$env:appdata\Trend Micro\Deep Security Agent\installer"
 New-Item -path $env:LogPath -type directory
 Start-Transcript -path "$env:LogPath\dsa_deploy.log" -append
 
 echo "$(Get-Date -format T) - DSA download started"
+echo "This is the manager url $managerUrl"
 if ( [intptr]::Size -eq 8 ) { 
    $sourceUrl=-join($managerUrl, "software/agent/Windows/x86_64/") }
 else {
