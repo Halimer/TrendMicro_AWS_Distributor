@@ -1,4 +1,11 @@
 #!/bin/bash
+#
+if [ -z "$BASH" ]
+then
+            exec /bin/bash "$0" "$@"
+    fi
+
+
 REGION=`curl http://169.254.169.254/latest/dynamic/instance-identity/document|grep region|awk -F\" '{print $4}'`
 
 aws configure set region $REGION
@@ -9,12 +16,6 @@ MANAGERURL=`aws ssm get-parameters --name DSMManageURL  --query 'Parameters[*].V
 CURLOPTIONS='--silent --tlsv1.2'
 linuxPlatform='';
 isRPM='';
-
-if [[ $(/usr/bin/id -u) -ne 0 ]]; then
-    echo You are not running as the root user.  Please try again with root privileges.;
-    logger -t You are not running as the root user.  Please try again with root privileges.;
-    exit 1;
-fi;
 
 if type curl >/dev/null 2>&1; then
   curl $MANAGERURL/software/deploymentscript/platform/linuxdetectscriptv1/ -o /tmp/PlatformDetection $CURLOPTIONS --insecure
@@ -35,9 +36,11 @@ if type curl >/dev/null 2>&1; then
          curl $MANAGERURL/software/agent/$linuxPlatform -o /tmp/$package $CURLOPTIONS --insecure
 
          echo Installing agent package...
-         if [[ $isRPM == 1 && -s /tmp/agent.rpm ]]; then
+         if [[ $isRPM == 1 && -s /tmp/agent.rpm ]];
+         then
            rpm -ihv /tmp/agent.rpm
-         elif [[ -s /tmp/agent.deb ]]; then
+         elif [[ -s /tmp/agent.deb ]];
+         then
            dpkg -i /tmp/agent.deb
          else
            echo Failed to download the agent package. Please make sure the package is imported in the Deep Security Manager
