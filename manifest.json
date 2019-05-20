@@ -1,7 +1,7 @@
 {
     "schemaVersion": "2.0",
     "version": "1.3.0",
-    "packages": {
+    "packages":{ 
         "windows":{
             "_any": {
                 "x86_64": {
@@ -15,17 +15,38 @@
                     "file": "TrendMicro_LINUX.zip"
                 }
             }
-        }
-    },
+        },    
+        "redhat": {
+            "_any": {
+                "x86_64": {
+                    "file": "TrendMicro_LINUX.zip"
+                }
+            }
+        },        
+        "ubuntu": {
+            "_any": {
+                "x86_64": {
+                    "file": "TrendMicro_LINUX.zip"
+                }
+            }
+        },            
+        "centos": {
+            "_any": {
+                "x86_64": {
+                    "file": "TrendMicro_LINUX.zip"
+                }
+            }
+        }    
+    },                                  
     "files": {
         "TrendMicro_WINDOWS.zip": {
             "checksums": {
-                "sha256": "23bc7895e02edc6ea1226ca53ba90e810e6f577ca380ef5c3db01d5ba5d8f9f4"
+                "sha256": "cc44d6f705a3622ca0d7a9304ddb9479135638236d13fca61f540d69b3e94ccc"
             }
         },
         "TrendMicro_LINUX.zip": {
             "checksums": {
-                "sha256": "bc0cb9efc492ffb6637c5c40ce1b82340b3ea8b0e921f96e6f2d311ce47690f8"
+                "sha256": "46ff8bc66c36295a612be8ed784d09758b10e0c7d63ea839395e36eedb5e39f5"
             }
         }
     }
